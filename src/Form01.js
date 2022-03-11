@@ -2,18 +2,34 @@ import React, { useState } from "react";
 import "./Form.css";
 
 function Form01() {
-  const [ad, setAd] = useState("");
-  const [soyad, setSoyad] = useState("");
-  const [mesaj, setMesaj] = useState("");
+  // const [ad, setAd] = useState("");
+  // const [soyad, setSoyad] = useState("");
+  // const [mesaj, setMesaj] = useState("");
 
-  function adGuncelle(event) {
-    setAd(event.target.value);
-  }
-  function soyadGuncelle(event) {
-    setSoyad(event.target.value);
-  }
-  function mesajGuncelle(event) {
-    setMesaj(event.target.value);
+  // function adGuncelle(event) {
+  //   setAd(event.target.value);
+  // }
+  // function soyadGuncelle(event) {
+  //   setSoyad(event.target.value);
+  // }
+  // function mesajGuncelle(event) {
+  //   setMesaj(event.target.value);
+  // }
+
+  const [form, setForm] = useState({ ad: "", soyad: "", mail: "" });
+
+  const { ad, soyad, mail } = form;
+  console.log("FORM", form);
+
+  function Guncelle(event) {
+    const { name, value } = event.target;
+    console.log(event.target)
+    setForm(() => {
+      return {
+        ...form,
+        [name]: value,
+      };
+    });
   }
 
   return (
@@ -24,35 +40,41 @@ function Form01() {
         </h1>
       )}
       <form>
-        <input
+      <fieldset>
+        <legend>Enter User Information Below</legend>
+        <label>First Name:</label><input
           className="input"
           type="text"
           placeholder="adiniz"
           name="ad"
           required
-          onChange={adGuncelle}
+          onChange={Guncelle}
           value={ad}
         />
+        <label>Last Name:</label>
         <input
           className="input"
           type="text"
           placeholder="soyadiniz"
           name="soyad"
           required
-          onChange={soyadGuncelle}
+          onChange={Guncelle}
           value={soyad}
         />
-        <textarea
+        <label>email:</label>
+        <input
           className="input"
-          name="mesaj"
-          id=""
-          cols="30"
-          rows="10"
-          value={mesaj}
-          onChange={mesajGuncelle}
-        ></textarea>
-
-        <button type="submit">Gonder</button>
+          type="email"
+          placeholder="Enter you e-mail"
+          name="mail"
+          onChange={Guncelle}
+          value={mail}
+        />
+  
+        <br></br>
+        <br></br>
+        <button type="Submit">Submit and Enter Address Data</button>
+        </fieldset>
       </form>
     </div>
   );
