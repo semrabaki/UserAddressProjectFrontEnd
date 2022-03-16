@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import "./Form.css";
+import Form02 from "./Form02";
 
 function Form01() {
-  // const [ad, setAd] = useState("");
-  // const [soyad, setSoyad] = useState("");
-  // const [mesaj, setMesaj] = useState("");
 
-  // function adGuncelle(event) {
-  //   setAd(event.target.value);
-  // }
-  // function soyadGuncelle(event) {
-  //   setSoyad(event.target.value);
-  // }
-  // function mesajGuncelle(event) {
-  //   setMesaj(event.target.value);
-  // }
+  const [form, setForm] = useState({ firstname: "", lastname: "", email: "" });
 
-  const [form, setForm] = useState({ ad: "", soyad: "", mail: "" });
-
-  const { ad, soyad, mail } = form;
+  const { firstname, lastname, email } = form;
   console.log("FORM", form);
 
-  function Guncelle(event) {
+  function Update(event) {
     const { name, value } = event.target;
     console.log(event.target)
     setForm(() => {
@@ -32,11 +20,20 @@ function Form01() {
     });
   }
 
+ 
+    const [show, setShow] = useState(false);
+    console.log(show);
+    function showForm2() {
+      setShow(!show);
+    }
+   
   return (
-    <div className="alan">
-      {ad && (
+   <div>
+   {!show?
+  <div className="alan">
+      {firstname && (
         <h1>
-          Merhaba {ad} {soyad}
+          Welcome {firstname} {lastname}
         </h1>
       )}
       <form>
@@ -45,37 +42,41 @@ function Form01() {
         <label>First Name:</label><input
           className="input"
           type="text"
-          placeholder="adiniz"
-          name="ad"
+          placeholder="First Name"
+          name="firstname"
           required
-          onChange={Guncelle}
-          value={ad}
+          onChange={Update}
+          value={firstname}
         />
         <label>Last Name:</label>
         <input
           className="input"
           type="text"
-          placeholder="soyadiniz"
-          name="soyad"
+          placeholder="Last Name"
+          name="lastname"
           required
-          onChange={Guncelle}
-          value={soyad}
+          onChange={Update}
+          value={lastname}
         />
         <label>email:</label>
         <input
           className="input"
           type="email"
           placeholder="Enter you e-mail"
-          name="mail"
-          onChange={Guncelle}
-          value={mail}
+          name="email"
+          onChange={Update}
+          value={email}
         />
   
         <br></br>
         <br></br>
-        <button type="Submit">Submit and Enter Address Data</button>
+        <button type="Submit" onClick={showForm2}>Submit and Enter Address Data</button>
+        {show && <Form02/>}
+        {/* {!show&&<Form01/>} */}
         </fieldset>
       </form>
+    </div>
+    :<Form02/>}
     </div>
   );
 }
